@@ -6,6 +6,7 @@
  Github: https://github.com/Udayraj123
 
 """
+
 from dotmap import DotMap
 
 # Filenames
@@ -33,6 +34,7 @@ FIELD_TYPES = {
         "direction": "vertical",
     },
     "QTYPE_MCQ4": {"bubbleValues": ["A", "B", "C", "D"], "direction": "horizontal"},
+    "QTYPE_MCQ4AR": {"bubbleValues": ["د", "ج", "ب", "أ"], "direction": "horizontal"},
     "QTYPE_MCQ5": {
         "bubbleValues": ["A", "B", "C", "D", "E"],
         "direction": "horizontal",
