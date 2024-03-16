@@ -3,8 +3,8 @@ from dotmap import DotMap
 CONFIG_DEFAULTS = DotMap(
     {
         "dimensions": {
-            "display_height": 2480,
-            "display_width": 1640,
+            "display_height": 800,
+            "display_width": 600,
             "processing_height": 820,
             "processing_width": 666,
         },
