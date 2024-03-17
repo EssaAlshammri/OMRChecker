@@ -1,12 +1,17 @@
+import os
 from dataclasses import dataclass
 
 import cv2
-from screeninfo import get_monitors
+from screeninfo import Monitor, get_monitors
 
 from src.logger import logger
 from src.utils.image import ImageUtils
 
-monitor_window = get_monitors()[0]
+monitor_window = (
+    Monitor(0, 0, 1000, 1000, 100, 100, "FakeMonitor", False)
+    if os.environ.get("OMR_CHECKER_CONTAINER")
+    else get_monitors()[0]
+)
 
 
 @dataclass
@@ -25,6 +30,8 @@ class InteractionUtils:
 
     @staticmethod
     def show(name, origin, pause=1, resize=False, reset_pos=None, config=None):
+        if(os.environ.get("OMR_CHECKER_CONTAINER")):
+            return
         image_metrics = InteractionUtils.image_metrics
         if origin is None:
             logger.info(f"'{name}' - NoneType image to show!")
