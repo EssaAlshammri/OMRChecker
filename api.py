@@ -1,7 +1,9 @@
+import csv
 import os
 import secrets
 import shutil
 from pathlib import Path
+from time import localtime, strftime
 
 from fastapi import FastAPI, Response, UploadFile
 from pdf2image import convert_from_bytes
@@ -31,7 +33,9 @@ def check_omrs(file: UploadFile, response: Response):
 
     run_omr_checker(current_omrs_path, random_path)
 
-    return {"message": "Check OMRs"}
+    results = result_csv_to_json(random_path)
+
+    return results
 
 
 def convert_to_images(file: UploadFile, output_dir: str):
@@ -64,3 +68,13 @@ def run_omr_checker(input_dir: str, output_dir: str):
             Path(root),
             args,
         )
+
+
+def result_csv_to_json(random_path: str):
+    TIME_NOW_HRS = strftime("%I%p", localtime())
+    result_csv_path = f"outputs/{random_path}/sheet/Results/Results_{TIME_NOW_HRS}.csv"
+    with open(result_csv_path, "r") as file:
+        reader = csv.DictReader(file)
+        rows = list(reader)
+
+    return rows
