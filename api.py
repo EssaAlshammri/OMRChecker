@@ -35,6 +35,8 @@ def check_omrs(file: UploadFile, response: Response):
 
     results = result_csv_to_json(random_path)
 
+    cleanup()
+
     return results
 
 
@@ -78,3 +80,10 @@ def result_csv_to_json(random_path: str):
         rows = list(reader)
 
     return rows
+
+
+def cleanup():
+    shutil.rmtree("omr_inputs")
+    shutil.rmtree("outputs")
+    os.makedirs("omr_inputs")
+    os.makedirs("outputs")
