@@ -78,7 +78,6 @@ def result_csv_to_json(random_path: str):
     with open(result_csv_path, "r") as file:
         reader = csv.DictReader(file)
         rows = list(reader)
-
     return rows
 
 
