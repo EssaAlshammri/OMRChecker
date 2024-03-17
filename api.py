@@ -41,7 +41,7 @@ def check_omrs(file: UploadFile, response: Response):
 
 
 def convert_to_images(file: UploadFile, output_dir: str):
-    os.makedirs(output_dir, exist_ok=True)
+    os.makedirs(f"{output_dir}/sheet", exist_ok=True)
     images = convert_from_bytes(file.file.read())
     for i, image in enumerate(images):
         image.save(f"{output_dir}/sheet/student_{i+1}.png", "PNG")
