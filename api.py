@@ -1,9 +1,12 @@
 import os
 import secrets
 import shutil
+from pathlib import Path
 
 from fastapi import FastAPI, Response, UploadFile
 from pdf2image import convert_from_bytes
+
+from src.entry import entry_point
 
 app = FastAPI()
 
@@ -22,8 +25,11 @@ def check_omrs(file: UploadFile, response: Response):
         response.status_code = 400
         return {"message": "File must be a PDF"}
 
-    current_omrs_path = generate_random_path()
+    random_path = generate_random_str()
+    current_omrs_path = generate_random_path(random_path)
     convert_to_images(file, current_omrs_path)
+
+    run_omr_checker(current_omrs_path, random_path)
 
     return {"message": "Check OMRs"}
 
@@ -35,8 +41,7 @@ def convert_to_images(file: UploadFile, output_dir: str):
         image.save(f"{output_dir}/sheet/student_{i+1}.png", "PNG")
 
 
-def generate_random_path():
-    random_path = generate_random_str()
+def generate_random_path(random_path: str):
     images_output_path = f"omr_inputs/{random_path}"
     shutil.copytree("samples/said", images_output_path)
     return images_output_path
@@ -44,3 +49,18 @@ def generate_random_path():
 
 def generate_random_str(length: int = 10):
     return secrets.token_hex(length)
+
+
+def run_omr_checker(input_dir: str, output_dir: str):
+    args = {
+        "input_paths": [input_dir],
+        "debug": False,
+        "output_dir": f"outputs/{output_dir}",
+        "autoAlign": False,
+        "setLayout": False,
+    }
+    for root in args["input_paths"]:
+        entry_point(
+            Path(root),
+            args,
+        )
