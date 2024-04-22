@@ -12,36 +12,36 @@
       "fieldType": "QTYPE_MCQ4AR",
       "origin": [
         870,
-        540
+        610
       ],
       "fieldLabels": [
         "sq1..10"
       ],
-      "labelsGap": 120,
+      "labelsGap": 112,
       "bubblesGap": 63
     },
     "Arabic": {
       "fieldType": "QTYPE_MCQ4AR",
       "origin": [
         498,
-        540
+        610
       ],
       "fieldLabels": [
         "aq1..10"
       ],
-      "labelsGap": 120,
+      "labelsGap": 112,
       "bubblesGap": 63
     },
     "Math": {
       "fieldType": "QTYPE_MCQ4AR",
       "origin": [
         125,
-        540
+        610
       ],
       "fieldLabels": [
         "mq1..10"
       ],
-      "labelsGap": 120,
+      "labelsGap": 112,
       "bubblesGap": 63
     }
   },
